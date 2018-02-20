@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+set -eo pipefail
+
+[[ $DEBUG ]] && set -x
+
+[[ $SLUG_DIR && $SLUG_URL ]] || exit 1
+
+[[ -d $SLUG_DIR ]] || mkdir -p $SLUG_DIR
+
+get_object
