@@ -1,0 +1,11 @@
+jobs:
+  include:
+    - stage: cron build docker image
+      script:
+        - if [ "$TRAVIS_EVENT_TYPE" != "cron" ]; then exit 0; fi
+        - export TRAVIS_TAG=$(git describe --always --tags --abbrev=0)
+        - git checkout "$TRAVIS_TAG"
+        - ./.ci-docker.sh
+    - stage: build docker image
+      script:
+        - ./.ci-docker.sh
